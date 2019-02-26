@@ -1,0 +1,114 @@
+unary :        NUMBER
+    |    STRING
+    |    BOOLEAN
+    |    THIS
+    |    unary_operator     unary
+    |    postfix_operable_unaries    optional_postfix_operator
+
+binary_operator :    PLUS
+                |    TIMES
+                |    MINUS
+                |    DIVIDES
+                |    MOD
+                |    EXPONENTIATION
+                |    AND
+                |    OR
+                |    comparison_operator
+                |    NOT comparison_operator
+                |    ASSIGN
+
+comparison_operator :    EQUALS
+                    |   NOT_EQUALS
+                    |    LESS_THAN
+                    |    GREATER_THAN
+                    |    LESS_THAN_OR_EQUALS
+                    |    GREATER_THAN_OR_EQUALS
+
+unary_operator :    PLUS
+                |    MINUS
+                |    NOT
+
+statements :        statement
+            |    statement    statements
+
+statement :         expression    COMMA
+            |    declaration
+
+optional_statements :        statements
+                    |    *empty*
+
+declaration :    VARIABLE optional_parameters optional_initialization SEMICOLON
+
+optional_initialization :  DEFINE    body    COLON
+                        |    *empty*
+
+body :        optional_statements    expression
+
+optional_parameters :        parameters
+        |    *empty*    
+
+parameters :  OPEN_PARENTHESIS optional_variable_list CLOSE_PARENTHESIS
+
+optional_variable_list :        variable_list
+                        |    *empty*
+
+variable_list :        VARIABLE
+            |    VARIABLE        COMMA    variable_list
+
+postfix_operable_unaries :        VARIABLE
+                        |    parenthesized_expression
+                        |    if_expression
+                        |    while_expression
+                        |    lambda_expression
+                        |    block
+
+optional_postfix_operator :        postfix_operator
+                            |    *empty*
+
+postfix_operators :        function_call
+                    |    array_access
+
+function_call :         OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS
+
+array_access :        OPEN_BRACKET body CLOSE_BRACKET
+
+
+parenthesized_expression :    |    OPEN_PARENTHESIS    expression    CLOSE_PARENTHESIS
+
+array_access :         VARIABLE    OPEN_BRACKET  body  CLOSE_BRACKET
+
+while_expression :        WHILE    OPEN_BRACKET while_arguments CLOSE_BRACKET
+
+while_arguments :        optional_expression_list COLON    expression    COLON  optional_expression_list
+
+lambda_expression :        LAMBDA    OPEN_BRACKET variable_list    COLON    body CLOSE_BRACKET
+
+function_call    :    VARIABLE    OPEN_PARENTHESIS optional_expression_list CLOSE_PARENTHESIS
+                |    anonymous_function_call
+
+lambda :        LAMBDA    OPEN_BRACKET variable_list    COLON    body CLOSE_BRACKET OPEN_PARENTHESIS optional_expression_list CLOSE_PARENTHESIS
+
+block :    OPEN_CURLY_BRACE body CLOSE_CURLY_BRACE
+
+if_expression :     IF    OPEN_BRACKET if_arguments CLOSE_BRACKET
+
+if_arguments :        cases optional_else_case
+
+optional_expression_list :        expression_list
+                        |    *empty*
+
+expression_list :        expression
+                |    expression COMMA expression_list
+
+expression :        unary
+            |    unary    binary_operator    expression
+
+cases :        case
+    |    case    COLON     cases
+
+case :        body    QUESTION_MARK    body   
+
+optional_else_case :        else_case
+                    |    *empty*
+
+else_case :        COLON    ELSE    body

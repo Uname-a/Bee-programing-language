@@ -8,10 +8,10 @@ TARGET = bee
 #### compile stuff  #################################################
 
 DIR        = $(CURDIR)
-TEST_DIR   = examples
-SRC_DIR    = source
-OBJ_DIR    = objects
-HEADER_DIR = header
+TEST_DIR   = $(CURDIR)
+SRC_DIR    = $(CURDIR)
+OBJ_DIR    = $(CURDIR)
+HEADER_DIR = $(CURDIR)
 
 # compiler options
 CC      = gcc

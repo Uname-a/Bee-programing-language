@@ -1,0 +1,145 @@
+
+# Interpreter
+* The name of the interpeter is "bee" example of it being used on the command line:
+    '$ bee file.b'
+* The extention I chose for this language is ".b"
+
+
+# Comments
+    comments start with #
+	if ## then  ignore until newline
+	or  ignore characters until newline or #
+
+# Basic Data Types
+	bee programing language supports 
+	* Ints
+		1,2,9 etc
+		-1,-3 etc
+	* Reals
+		1.0,2.4 etc
+		-1.0,-3.3 etc
+	* boolean
+		"true","false"
+	* strings
+		"this is a string"
+		escapable characters include '\n', '\t', '\b', '\v', '\f', '\r', '\a', '"', '\\', with their usual meaning in c
+	* nil
+		nil is null but with a cooler name
+
+
+# Variables
+	* Variables must be declared before being used
+	* Valid names are any that begin with an alphabetical character followed by any contiguous sequence of alphanumerical charactors
+
+# Operators
+   assignment, '==', right, 0
+         returns the right operand
+   relational
+    	logical or, 'or' or '+', left, 1
+    	logical and, 'and' or '*', left, 2
+	    equals, '=', left, 3
+	    not-equals, '~=', left, 3
+	    less-than, '<', left, 4
+	    greater-than, '>', left, 4
+	    less-than-or-equal-to, '<=', left, 4
+	    greater-than-or-equal-to, '>=', left, 4
+    mathematical
+	    not, 'not' or '~'
+	    plus, '+', left, 5
+	        applying '+' to string operands returns the concatenated string
+	    minus, '-', left, 5
+	    modulo, 'mod', left, 6
+	        - 'mod' computes the remainder of Euclidean division
+	    div, 'div', left, 6
+	        - 'div' computes the quotient of Euclidean division
+	    multiplciation, '*', left, 7
+	    division, '/', left, 7
+	    remainder, '%', left, 7
+	    exponentiation, '^', right, 6
+	    positive, '+'
+    	negative, '-'
+
+# Functions
+	* funtions are first class objects as required by the project
+	* funtions can have any names following the same convention as varables
+	* To describe a function you follow the convenction "f(input) := body :;"
+	* example:
+		'f(x) := x + x :;'
+	* functions can contain lambdas
+# Lambda
+	* lambda follow the convention of 'lambda[ parameters : body ]'
+	* Examples:
+      'lambda[x,y: x^2 + y^2]'
+
+
+# Arrays
+	* Arrays start at zero 
+	* Arrays are allocated using 'allocate(size)', where 'size' is the number of elements to be allocated. Element type can be anything.
+	* Array elements are accessed using the square brackets following the array name.
+	* example:
+	    * 'a[0]'
+	* assignment can be change after array init and does not need to be reallacted if changed to a different type
+		* 'a[0] == "a"'
+		* 'a[0] == 3'
+# Lists
+	* Bee contains the functions 'cons()', 'car()', and 'cdr()', which have their usual use.
+	* 'list(args)' is also implemented, which returns the list composed of the uated arguments.
+
+# Conditionals
+	* Bee contains conditionals that follow the pattern of "if[ condition1 ? action1 : condition2 ? action2 : ... : else default-action ]"
+	* multiple condtions can be included in the condition part of the if statement
+	* else is not required
+	* example:
+		x == if[ 1 < 2 ? true ],
+
+		x would become true if 1 < 2
+
+# Loops
+	* supports while loops 
+	* layout is: 'while[pre_condition_action : condition : post_condtion_action]'
+	* either or both pre and post condtions can be left blank
+	* example:
+		while[ : i < n : i == i + 1 ],	
+
+# blocks and scope
+	* you can use blocks to create inner scopes witout needing to use a function
+	* blocks start with '{' and end with '}'
+	* they act like a function that cannot be called 
+	*example:
+		i := 2 :;
+    	{
+	        j := 5 :;
+	        i == i * j
+    	},
+    * j cant be reached from outside that block but can pull varables from the scope above it
+
+#built-in functions
+print
+	* print(args) - prints the args to the command line
+	* println(args) - prints the args to the command line and ends with a new line
+allocation and type change
+	* allocate(args) - allocates and returns an array with args number of elements
+	* real(args) - changes args to real
+	* integer(args) - changes args to Int
+lists
+	* list(args) - makes a list from the args
+	* cons(args) -  returns the cons of the pair  in args
+	* car(args) -  returns the car of the pair in args
+	* cdr(args) -  returns the cdr of the pair in  args
+size of
+	* sizeof(args) - returns the size of the args
+
+These funtions return true  or false 
+    * isNil(args) - returns true ifargs is nil
+    * isString(args) - returns true if args is a string
+    * isInteger(args) - returns true ifargs is  a int
+    * isReal(args) - returns true if args is  a real
+command line
+	* getArg(args) - returns  the command line arg at postition provided by args
+	* getArgCount(); returns how many command line argss there are
+file
+	* openFile(args) - open args for reading
+	* readInteger(args) - returns one int from file args
+	* atFileEnd(args) - returns true or false about if the file is eof
+	* closefile(args) - closes file
+
